@@ -1,0 +1,54 @@
+{
+  "name": "maptalks.Choropleth",
+  "version": "0.1.0",
+  "description": "color scale based on value for geojson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zzcyrus/maptalks.Choropleth"
+  },
+  "main": "dist/maptalks.Choropleth .js",
+  "module": "dist/maptalks.Choropleth .es.js",
+  "jsnext:main": "dist/maptalks.Choropleth .es.js",
+  "files": [
+    "dist/maptalks.Choropleth .js",
+    "dist/maptalks.Choropleth .min.js",
+    "dist/maptalks.Choropleth .es.js"
+  ],
+  "scripts": {
+    "version": "gulp minify && git add -A dist",
+    "prepublish": "gulp minify",
+    "lint": "eslint idnex.js",
+    "pretest": "npm run lint"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "babel-preset-es2015": "^6.18.0",
+    "eslint": "^4.9.0",
+    "eslint-config-maptalks": "^0.2.2",
+    "eslint-plugin-mocha": "^4.8.0",
+    "expect-maptalks": "^0.2.5",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^4.0.0",
+    "happen": "^0.3.1",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-expect": "^1.1.3",
+    "karma-expect-maptalks": "^0.1.4",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-happen": "^0.1.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.1",
+    "maptalks": ">=0.31.0",
+    "maptalks-build-helpers": "^0.4.2",
+    "minimist": "^1.2.0",
+    "mocha": "^4.0.0"
+  },
+  "peerDependencies": {
+    "maptalks": ">=0.31.0"
+  },
+  "dependencies": {
+    "chroma-js": "^1.1.1"
+  }
+}

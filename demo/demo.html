@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>maptalks.Choropleth demo</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maptalks/dist/maptalks.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/maptalks/dist/maptalks.min.js"></script>
+    <script type="text/javascript" src="../dist/maptalks.Choropleth.js"></script>
+    <script src="exampledata.js"></script>
+
+    <style>
+        html,
+        body {
+            margin: 0px;
+            height: 100%;
+            width: 100%;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        //map
+        var map = new maptalks.Map("map", {
+            center: [-75.13893127441406, 39.9897471840457],
+            zoom: 10,
+            attributionControl: {
+                'content': '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            },
+            baseLayer: new maptalks.TileLayer('tile', {
+                urlTemplate: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+                subdomains: ['a', 'b', 'c', 'd']
+            })
+        });
+        //layer
+        var choropleth = new maptalks.Choropleth('choropleth', geojson, {
+            valueProperty: 'incidents', // which property in the features to use
+            scale: ['white', 'red'], // chroma.js scale - include as many as you like
+            steps: 5, // number of breaks or steps in range
+            mode: 'q', // q for quantile, e for equidistant, k for k-means
+            style: {
+                lineColor: '#fff', // border color
+                lineWidth: 2, //border width
+                polygonOpacity: 0.8 //fill opacity
+            }
+        }).addTo(map);
+        //event
+        var popup = new maptalks.ui.InfoWindow({
+            title: '',
+            content: ''
+        }).addTo(map);
+
+        choropleth.getGeometries().forEach(function (g) {
+            g.on('mouseenter', function (e) {
+                e.target.updateSymbol({
+                    lineColor: '#666',
+                    lineWidth: 5,
+                });
+                popup.setContent(e.target.properties.incidents);
+                popup.setTitle(e.target.properties.location);
+                popup.show(e.coordinate);
+            }).on('mouseout', function (e) {
+                //reset color
+                e.target.updateSymbol({
+                    lineColor: '#fff',
+                    lineWidth: 2,
+                });
+            })
+        })
+    </script>
+</body>
+
+</html>
